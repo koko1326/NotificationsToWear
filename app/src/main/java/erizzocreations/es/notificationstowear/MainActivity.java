@@ -12,10 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-
+/*
+* Author: CVR
+* Date :22/01/2015
+* Description: Example  wearable notifications
+* */
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
-    private Button notification;
+    private Button BT_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,48 +29,30 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void init() {
-        notification = (Button) findViewById(R.id.BT_notif);
-        notification.setOnClickListener(this);
+        //Define notification button
+        BT_notification = (Button) findViewById(R.id.BT_notif);
 
+        //Set onclicklistener
+        BT_notification.setOnClickListener(this);
 
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.BT_notif:
-                notificar();
+                notifyToWear();
+                break;
+            default:
                 break;
         }
     }
 
-    public void notificar() {
+    public void notifyToWear() {
+
         int notificationId = 001;
-// Build intent for notification content
+
+        // Build intent for notification content
 
         Intent viewIntent = new Intent(this, MainActivity.class);
 
@@ -80,11 +66,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         .setContentText("Saludo desde mi telefono")
                         .setContentIntent(viewPendingIntent);
 
-// Get an instance of the NotificationManager service
+        // Get an instance of the NotificationManager service
+
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(this);
 
-// Build the notification and issues it with notification manager.
+        // Build the notification and issues it with notification manager.
+
         notificationManager.notify(notificationId, notificationBuilder.build());
     }
 }
